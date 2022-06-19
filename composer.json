@@ -1,0 +1,21 @@
+{
+    "name": "gtstudio/module-notifications",
+    "description": "This module shows magento messages in a clearer and more elegant way",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Gabriel Silveira",
+            "email": "gabrielt.gts@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Gtstudio\\Notifications\\": ""
+        }
+    }
+}
