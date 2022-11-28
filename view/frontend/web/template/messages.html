@@ -1,0 +1,20 @@
+
+<div data-role="checkout-messages" class="messages" data-bind="visible: isVisible(), click: removeAll">
+    <!-- ko foreach: messageContainer.getErrorMessages() -->
+    <div aria-atomic="true" role="alert" class="message message-error error float">
+        <div data-ui-id="checkout-cart-validationmessages-message-error" data-bind="text: $data"></div>
+        <div data-bind="attr: {class: 'message-close'}, click : $parent.closeMessage" class="hide">
+            <img data-bind="attr: { src: require.toUrl('Gtstudio_Notifications/images/close.svg') }" alt="close message">
+        </div>
+    </div>
+    <!--/ko-->
+
+    <!-- ko foreach: messageContainer.getSuccessMessages() -->
+    <div aria-atomic="true" role="alert" class="message message-success success float">
+        <div data-ui-id="checkout-cart-validationmessages-message-success" data-bind="text: $data"></div>
+        <div data-bind="attr: {class: 'message-close'}, click : $parent.closeMessage" class="hide">
+            <img data-bind="attr: { src: require.toUrl('Gtstudio_Notifications/images/close.svg') }" alt="close message">
+        </div>
+    </div>
+    <!--/ko-->
+</div>

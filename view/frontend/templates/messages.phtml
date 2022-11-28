@@ -1,53 +1,57 @@
 <?php
-
 /**
  * Copyright © GTstudio, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 ?>
 
-<?php $enabled = $this->getConfig('enable') ?>
+<?php $isEnabled = (bool) $this->getConfig('enable') ?>
 
 <div class="messages-container" data-bind="scope: 'messages'">
     <!-- ko if: cookieMessages && cookieMessages.length > 0 -->
     <div aria-atomic="true" role="alert" data-bind="foreach: { data: cookieMessages, as: 'message' }" class="messages">
         <div data-bind="attr: {
-            class: 'message-' + message.type + ' ' + message.type + ' message',
-            'data-ui-id': 'message-' + message.type
-        }">
+                class: 'message-' + message.type + ' ' + message.type + ' message' + <?= $isEnabled ? "' float'" : "''" ?>,
+                'data-ui-id': 'message-' + message.type
+            }">
             <div data-bind="html: $parent.prepareMessageForHtml(message.text)"></div>
+            <div data-bind="attr: {class: 'message-close'}, click : $parent.closeMessage" style="display:none;">
+                <img src="<?= $this->getViewFileUrl('Gtstudio_Notifications/images/close.svg'); ?>" alt="close message">
+            </div>
         </div>
     </div>
     <!-- /ko -->
 
     <!-- ko if: messages().messages && messages().messages.length > 0 -->
     <div aria-atomic="true" role="alert" class="messages" data-bind="foreach: {
-        data: messages().messages, as: 'message'
-    }">
+            data: messages().messages, as: 'message'
+        }">
         <div data-bind="attr: {
-            class: 'message-' + message.type + ' ' + message.type + ' message' + <?= $enabled ? "' float'" : "''" ?>,
-            'data-ui-id': 'message-' + message.type,
-        }" style=" <?= $enabled ? $this->getConfig('custom_css') : '' ?>">
+                class: 'message-' + message.type + ' ' + message.type + ' message float ' + <?= $isEnabled ? "' float'" : "''" ?>,
+                'data-ui-id': 'message-' + message.type,
+            }" style=" <?= $isEnabled ? $this->getConfig('custom_css') : '' ?>">
             <div data-bind="html: $parent.prepareMessageForHtml(message.text)"></div>
-            <div data-bind="attr: {class: 'message-close'}, click : $parent.closeMessage" class="hide">
+            <div data-bind="attr: {class: 'message-close'}, click : $parent.closeMessage" style="display:none;">
                 <img src="<?= $this->getViewFileUrl('Gtstudio_Notifications/images/close.svg'); ?>" alt="close message">
             </div>
         </div>
     </div>
     <!-- /ko -->
 </div>
+
 <script type="text/x-magento-init">
     {
         "*": {
             "Magento_Ui/js/core/app": {
                 "components": {
-                        "messages": {
-                            "component": "Magento_Theme/js/view/messages",
-                            "enable": <?= $enabled ?>,
-                            "time_out": <?= $this->getConfig('time_out') ?: "1500" ?>
-                        }
+                    "messages": {
+                        "component": "Magento_Theme/js/view/messages",
+                        "enable": <?= $isEnabled ?>,
+                        "time_out": <?= (int)$this->getConfig('time_out') ?: 1500 ?>
                     }
                 }
             }
+        }
     }
 </script>
+

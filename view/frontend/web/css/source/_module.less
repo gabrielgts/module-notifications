@@ -3,29 +3,58 @@
         position: relative;
 
         .message {
-            &.float {
-                position : fixed;
-                z-index: 99;
-                border: 1px solid #ccc;
-                border-radius: 10px;
-                box-shadow: rgba(0, 0, 0, 0.25) 0 54px 55px,
-                 rgba(0, 0, 0, 0.12) 0px -12px 30px,
-                 rgba(0, 0, 0, 0.12) 0px 4px 6px,
-                 rgba(0, 0, 0, 0.17) 0px 12px 13px,
-                 rgba(0, 0, 0, 0.09) 0px -3px 5px;
-                color: black;
-                left: 50%;
-                transform: translateX(-50%);
-                bottom: 20px;
-                display: inline-flex;
-                align-items: center;
-                width: 100%;
-                max-width: ~"calc(100% - 100px)";
-                justify-content: space-between;
+            position : fixed;
+            z-index: 99;
+            box-shadow: 0 2px 4px 1px rgba(0, 0, 0, .1);
+            color: black;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 20px;
+            display: inline-flex;
+            align-items: flex-start;
+            max-width: ~"calc(100% - 100px)";
+            border-radius: 25px;
+            justify-content: space-between;
+            padding-bottom: 8px;
+
+            &.message-success,
+            &.success {
+                color: green !important;
+                border: green;
+
+                .message-close img {
+                    filter: invert(25%) sepia(100%) saturate(5514%) hue-rotate(110deg) brightness(96%) contrast(106%);
+                }
             }
+
+            &.message-error,
+            &.error {
+                color: darkred !important;
+                border: red;
+
+                .message-close img {
+                    filter: invert(11%) sepia(46%) saturate(6672%) hue-rotate(14deg) brightness(101%) contrast(130%);
+                }
+            }
+
+            &.message-warning,
+            &.notice,
+            &.warning {
+                color: #6f4400 !important;
+                border: #6f4400;
+
+                .message-close img {
+                    filter: invert(47%) sepia(77%) saturate(3250%) hue-rotate(21deg) brightness(96%) contrast(101%);
+                }
+            }
+
 
             &-close {
                 cursor: pointer;
+                margin-left: 5px;
+
+                /* Prevent close img appear when knockout is loading */
+                display: block !important;
 
                 img {
                     width: 18px;

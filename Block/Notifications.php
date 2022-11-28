@@ -8,55 +8,22 @@ declare(strict_types=1);
 
 namespace Gtstudio\Notifications\Block;
 
-use Magento\Store\Model\ScopeInterface;
-
-use \Magento\Framework\{
-    View\Element\Template\Context,
-    App\Config\ScopeConfigInterface,
-    View\Element\Messages,
-    Message\Factory,
-    Message\CollectionFactory,
-    Message\ManagerInterface,
-    View\Element\Message\InterpretationStrategyInterface
+use Magento\Framework\{
+    View\Element\Messages
 };
+
+use Magento\Store\Model\ScopeInterface;
 
 class Notifications extends Messages
 {
-
     /**
-     * Constructor
-     *
-     * @param Context  $context
-     * @param ScopeConfigInterface $scopeConfig
-     * @param array $data
-     */
-    public function __construct(
-        Context $context,
-        ScopeConfigInterface $scopeConfig,
-        Factory $messageFactory,
-        CollectionFactory $collectionFactory,
-        ManagerInterface $messageManager,
-        InterpretationStrategyInterface $interpretationStrategy,
-        array $data = []
-    ) {
-        $this->scopeConfig = $scopeConfig;
-        parent::__construct(
-            $context,
-            $messageFactory,
-            $collectionFactory,
-            $messageManager,
-            $interpretationStrategy,
-            $data
-        );
-    }
-
-    /**
-     * Retriever admin config for given subpath
+     * Retriever admin config for given subpart
+     * @param $path
      * @return string|array|int|null
      */
-    public function getConfig($path)
+    public function getConfig($path): array|int|string|null
     {
-        return $this->scopeConfig->getValue(
+        return $this->_scopeConfig->getValue(
             "notifications/general/$path",
             ScopeInterface::SCOPE_STORE
         );
